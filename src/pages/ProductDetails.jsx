@@ -1,7 +1,37 @@
 /* eslint-disable react/no-unknown-property */
+import { useEffect, useState } from "react";
 import Footer from "../Components/Footer/Footer";
 import Header from "../Components/Header/Header";
+import { useParams } from "react-router-dom";
+import { FiArrowUpRight } from "react-icons/fi";
+import Swal from "sweetalert2";
+
 function ProductDetails() {
+  const [details, setDetails] = useState({});
+  const [count, setCount] = useState(0);
+
+  const { id } = useParams();
+  const fetchDetails = async () => {
+    const responce = await fetch(`https://fakestoreapi.com/products/${id}`);
+    const jsonData = await responce.json();
+    setDetails(jsonData);
+  };
+
+  useEffect(() => {
+    fetchDetails();
+  }, []);
+
+  const addToCart=()=>{
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Your product is added to cart",
+      showConfirmButton: "true",
+      confirmButtonText: "Go to cart",
+      
+    });
+  }
+
   return (
     <div>
       <div className="flex flex-col min-h-screen">
@@ -17,60 +47,10 @@ function ProductDetails() {
                     <div className="sticky top-0 z-50 overflow-hidden ">
                       <div className="relative mb-6 lg:mb-10 lg:h-2/4 ">
                         <img
-                          src="https://i.postimg.cc/PqYpFTfy/pexels-melvin-buezo-2529148.jpg"
+                          src={details.image}
                           alt=""
-                          className="object-cover w-full lg:h-full "
+                          className="w-full lg:h-full object-cover "
                         />
-                      </div>
-                      <div className="flex-wrap hidden md:flex ">
-                        <div className="w-1/2 p-2 sm:w-1/4">
-                          <a
-                            href="#"
-                            className="block border border-blue-300 dark:border-transparent hover:border-blue-300"
-                          >
-                            <img
-                              src="https://i.postimg.cc/PqYpFTfy/pexels-melvin-buezo-2529148.jpg"
-                              alt=""
-                              className="object-cover w-full lg:h-20"
-                            />
-                          </a>
-                        </div>
-                        <div className="w-1/2 p-2 sm:w-1/4">
-                          <a
-                            href="#"
-                            className="block border border-transparent  hover:border-blue-300"
-                          >
-                            <img
-                              src="https://i.postimg.cc/PqYpFTfy/pexels-melvin-buezo-2529148.jpg"
-                              alt=""
-                              className="object-cover w-full lg:h-20"
-                            />
-                          </a>
-                        </div>
-                        <div className="w-1/2 p-2 sm:w-1/4">
-                          <a
-                            href="#"
-                            className="block border border-transparent d hover:border-blue-300"
-                          >
-                            <img
-                              src="https://i.postimg.cc/PqYpFTfy/pexels-melvin-buezo-2529148.jpg"
-                              alt=""
-                              className="object-cover w-full lg:h-20"
-                            />
-                          </a>
-                        </div>
-                        <div className="w-1/2 p-2 sm:w-1/4">
-                          <a
-                            href="#"
-                            className="block border border-transparent  hover:border-blue-300"
-                          >
-                            <img
-                              src="https://i.postimg.cc/PqYpFTfy/pexels-melvin-buezo-2529148.jpg"
-                              alt=""
-                              className="object-cover w-full lg:h-20"
-                            />
-                          </a>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -81,23 +61,70 @@ function ProductDetails() {
                           New
                         </span>
                         <h2 className="max-w-xl mt-2 mb-6 text-2xl font-bold  md:text-4xl">
-                          Duck Roast Instant Curry Mix
+                          {details.title}
                         </h2>
                         <div className="flex items-center mb-6">
                           <p className="text-[15px] ">Description:</p>
                         </div>
                         <p className="max-w-md mb-8 text-gray-700">
-                          Lorem ispum dor amet Lorem ispum dor amet Lorem ispum
-                          dor amet Lorem ispum dor amet Lorem ispum dor amet
-                          Lorem ispum dor amet Lorem ispum dor amet Lorem ispum
-                          dor amet
+                          {details.description}
                         </p>
                         <p className="inline-block mb-8 text-4xl font-bold text-gray-700 ">
-                          <span>$1000.99</span>
+                          <span> {`₹${details.price}`}</span>
                           <span className="text-base font-normal text-gray-500 line-through">
-                            $1500.99
+                            100
                           </span>
                         </p>
+                      </div>
+                      <div className="flex-wrap hidden md:flex ">
+                        <div className="w-1/2 p-2 sm:w-1/4">
+                          <a
+                            href="#"
+                            className="block border border-blue-300 dark:border-transparent hover:border-blue-300"
+                          >
+                            <img
+                              src={details.image}
+                              alt=""
+                              className="object-contain w-full lg:h-20"
+                            />
+                          </a>
+                        </div>
+                        <div className="w-1/2 p-2 sm:w-1/4">
+                          <a
+                            href="#"
+                            className="block border border-transparent  hover:border-blue-300"
+                          >
+                            <img
+                              src={details.image}
+                              alt=""
+                              className="object-contain w-full lg:h-20"
+                            />
+                          </a>
+                        </div>
+                        <div className="w-1/2 p-2 sm:w-1/4">
+                          <a
+                            href="#"
+                            className="block border border-transparent d hover:border-blue-300"
+                          >
+                            <img
+                              src={details.image}
+                              alt=""
+                              className="object-contain w-full lg:h-20"
+                            />
+                          </a>
+                        </div>
+                        <div className="w-1/2 p-2 sm:w-1/4">
+                          <a
+                            href="#"
+                            className="block border border-transparent  hover:border-blue-300"
+                          >
+                            <img
+                              src={details.image}
+                              alt=""
+                              className="object-contain w-full lg:h-20"
+                            />
+                          </a>
+                        </div>
                       </div>
 
                       <div className="w-32 mb-8 ">
@@ -108,28 +135,32 @@ function ProductDetails() {
                           Quantity
                         </label>
                         <div className="relative flex flex-row w-full h-10 mt-4 bg-transparent rounded-lg">
-                          <button className="w-20 h-full text-gray-600 bg-gray-300 rounded-l outline-none cursor-pointer hover:text-gray-700 hover:bg-gray-400">
+                          <button
+                            onClick={() => setCount(count - 1)}
+                            className="w-20 h-full text-gray-600 bg-gray-300 rounded-l outline-none cursor-pointer hover:text-gray-700 hover:bg-gray-400"
+                          >
                             <span className="m-auto text-2xl font-thin">-</span>
                           </button>
                           <input
                             type="number"
                             className="flex items-center w-full font-semibold text-center text-gray-700 placeholder-gray-700 bg-gray-300 outline-none  focus:outline-none text-md hover:text-black"
-                            placeholder="1"
+                            placeholder={count}
                           />
-                          <button className="w-20 h-full text-gray-600 bg-gray-300 rounded-r outline-none cursor-pointer hover:text-gray-700 hover:bg-gray-400">
+                          <button
+                            onClick={() => setCount(count + 1)}
+                            className="w-20 h-full text-gray-600 bg-gray-300 rounded-r outline-none cursor-pointer hover:text-gray-700 hover:bg-gray-400"
+                          >
                             <span className="m-auto text-2xl font-thin">+</span>
                           </button>
                         </div>
                       </div>
                       <div className="flex flex-wrap items-center -mx-4 ">
                         <div className="w-full px-4 mb-4 lg:w-1/2 lg:mb-0">
-                          <button className="flex items-center justify-center w-full p-4 text-blue-500 border border-blue-500 rounded-md dark:text-gray-200 dark:border-blue-600 hover:bg-blue-600 hover:border-blue-600 hover:text-gray-100 dark:bg-blue-600 dark:hover:bg-blue-700 dark:hover:border-blue-700 dark:hover:text-gray-300">
-                            Add to Cart
-                          </button>
-                        </div>
-                        <div className="w-full px-4 mb-4 lg:mb-0 lg:w-1/2">
-                          <button className="flex items-center justify-center w-full p-4 text-blue-500 border border-blue-500 rounded-md dark:text-gray-200 dark:border-blue-600 hover:bg-blue-600 hover:border-blue-600 hover:text-gray-100 dark:bg-blue-600 dark:hover:bg-blue-700 dark:hover:border-blue-700 dark:hover:text-gray-300">
-                            Add to wishlist
+                          <button 
+                          onClick={()=>addToCart()}
+                          className="hover:shadow-form rounded-md bg-gradient-to-br from-blue-400 to-blue-800 py-3 px-8 text-base font-semibold text-white outline-none flex justify-center items-center gap-2 ">
+                            Add to cart
+                            <FiArrowUpRight className="text-[20px]" />
                           </button>
                         </div>
                       </div>

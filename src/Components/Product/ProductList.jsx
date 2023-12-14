@@ -1,11 +1,12 @@
+/* eslint-disable react/prop-types */
 import ProductCard from "./ProductCard"
 
 
 
-function ProductList() {
+function ProductList({data}) {
   return (
     <div>
-        <ProductCard/>
+        <ProductCard data={data}/>
      
     </div>
   )
