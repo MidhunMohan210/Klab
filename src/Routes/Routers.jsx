@@ -8,6 +8,7 @@ import About from "../pages/About";
 const Routers = () => {
   return (
     <Routes>
+      <Route path="/" element={<Shop />} />
       <Route path="/shop" element={<Shop />} />
       <Route path="/productDetails/:id" element={<ProductDetails />} />
       <Route path="/cart" element={<Cart />} />

@@ -5,6 +5,8 @@ import Header from "../Components/Header/Header";
 import { useParams } from "react-router-dom";
 import { FiArrowUpRight } from "react-icons/fi";
 import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../Slice/cartSlice";
 
 function ProductDetails() {
   const [details, setDetails] = useState({});
@@ -21,7 +23,10 @@ function ProductDetails() {
     fetchDetails();
   }, []);
 
-  const addToCart=()=>{
+  const dispatch=useDispatch();
+
+  const addCart=(details)=>{
+    dispatch(addToCart(details))
     Swal.fire({
       position: "center",
       icon: "success",
@@ -49,7 +54,7 @@ function ProductDetails() {
                         <img
                           src={details.image}
                           alt=""
-                          className="w-full lg:h-full object-cover "
+                          className="w-[500px] lg:h-[500px] object-contain "
                         />
                       </div>
                     </div>
@@ -127,37 +132,11 @@ function ProductDetails() {
                         </div>
                       </div>
 
-                      <div className="w-32 mb-8 ">
-                        <label
-                          for=""
-                          className="w-full text-xl font-semibold text-gray-700"
-                        >
-                          Quantity
-                        </label>
-                        <div className="relative flex flex-row w-full h-10 mt-4 bg-transparent rounded-lg">
-                          <button
-                            onClick={() => setCount(count - 1)}
-                            className="w-20 h-full text-gray-600 bg-gray-300 rounded-l outline-none cursor-pointer hover:text-gray-700 hover:bg-gray-400"
-                          >
-                            <span className="m-auto text-2xl font-thin">-</span>
-                          </button>
-                          <input
-                            type="number"
-                            className="flex items-center w-full font-semibold text-center text-gray-700 placeholder-gray-700 bg-gray-300 outline-none  focus:outline-none text-md hover:text-black"
-                            placeholder={count}
-                          />
-                          <button
-                            onClick={() => setCount(count + 1)}
-                            className="w-20 h-full text-gray-600 bg-gray-300 rounded-r outline-none cursor-pointer hover:text-gray-700 hover:bg-gray-400"
-                          >
-                            <span className="m-auto text-2xl font-thin">+</span>
-                          </button>
-                        </div>
-                      </div>
-                      <div className="flex flex-wrap items-center -mx-4 ">
+                    
+                      <div className="flex flex-wrap items-center -mx-4 mt-12 ">
                         <div className="w-full px-4 mb-4 lg:w-1/2 lg:mb-0">
                           <button 
-                          onClick={()=>addToCart()}
+                          onClick={()=>addCart(details)}
                           className="hover:shadow-form rounded-md bg-gradient-to-br from-blue-400 to-blue-800 py-3 px-8 text-base font-semibold text-white outline-none flex justify-center items-center gap-2 ">
                             Add to cart
                             <FiArrowUpRight className="text-[20px]" />
