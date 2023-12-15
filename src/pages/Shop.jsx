@@ -11,11 +11,15 @@ import { useEffect, useState } from "react";
 function Shop() {
   const [products, setProducts] = useState([]);
   const [visible, setVisible] = useState(6);
-  const [search, setSearch] = useState("");
-  const [filtered, setFiltered] = useState([]);
+  // const [search, setSearch] = useState("");
+  // const [filtered, setFiltered] = useState([]);
 
   useEffect(() => {
     fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
   }, []);
 
   const fetchProducts = async () => {
@@ -31,17 +35,17 @@ function Shop() {
     setVisible((prevProduct) => prevProduct - 6);
   };
 
-  const searchedProducts = (data) => {
-    return data.filter((product) =>
-      product.title.toLowerCase().includes(search.toLowerCase)
-    );
-  };
+  // const searchedProducts = (data) => {
+  //   return data.filter((product) =>
+  //     product.title.toLowerCase().includes(search.toLowerCase)
+  //   );
+  // };
 
-  const handleSearch = (event) => {
-    setSearch(event.target.value);
-    const filteredProducts = searchedProducts(products);
-    setFiltered(filteredProducts);
-  };
+  // const handleSearch = (event) => {
+  //   setSearch(event.target.value);
+  //   const filteredProducts = searchedProducts(products);
+  //   setFiltered(filteredProducts);
+  // };
 
   return (
     <div>
@@ -57,7 +61,7 @@ function Shop() {
               <div className="max-w-[450px]   p-2 mt-[40px] mx-auto bg-white border border-blue-600 rounded-xl flex items-center justify-between ">
                 <input
                   type="search"
-                  onChange={handleSearch}
+                  // onChange={handleSearch}
                   className="w-full h-10 py-4 pl-4 pr-2 bg-transparent cursor-pointer focus:outline-none placeholder:text-textColor "
                   placeholder="Select Province"
                 />
@@ -78,7 +82,8 @@ function Shop() {
               <div className="flex justify-center mt-12">
                 <button
                   onClick={() => (visible <= 6 ? loadMore() : loadLess())}
-                  className="flex justify-center items-center gap-2 text-[20px] px-2 h-[50px] text-white rounded-md bg-gradient-to-br from-blue-400 to-blue-800"
+                  className="flex justify-center items-center gap-2 text-[20px] px-2 h-[50px]
+                   text-white rounded-md bg-gradient-to-br from-blue-400 to-blue-800 hover:scale-105 transition duration-100 ease-in-out cursor-pointer"
                 >
                   {visible > 6 ? "Show Less" : "Show More"}
                   {visible > 6 ? <FaArrowUp /> : <FaArrowDown />}

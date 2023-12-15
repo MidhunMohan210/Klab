@@ -4,10 +4,16 @@ import { useState } from "react";
 import Footer from "../Components/Footer/Footer";
 import Header from "../Components/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
-import emptyCart from "../assets/Images/emptyCart.jpg";
+import emptyCart from "../assets/Images/emptyCart.webp";
 import { removeFromCart } from "../Slice/cartSlice";
+import { useEffect } from "react";
 
 export const Cart = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const cartProducts = useSelector((state) => state.cart);
   const [count, setCount] = useState(cartProducts.map(() => 1));
 
@@ -63,7 +69,7 @@ export const Cart = () => {
                             <div class="inline-flex items-center px-4 font-semibold text-gray-500 border border-gray-300 rounded-md  ">
                               <button
                                 onClick={() =>
-                                  count[index] > 0 &&
+                                  count[index] >1  &&
                                   handleCountChange(index, count[index] - 1)
                                 }
                                 class="py-2 pr-2 border-r border-gray-300 hover:text-gray-700"
@@ -108,7 +114,7 @@ export const Cart = () => {
                         <div class="w-full px-4 xl:w-auto">
                           <span class="text-xl font-medium text-blue-500 dark:text-blue-400 ">
                             <span class="text-sm">₹</span>
-                            <span className="ml-1">{item.price * count[index]}</span>
+                            <span className="ml-1">{Math.floor(item.price * count[index])}</span>
                           </span>
                         </div>
                         <button 
@@ -156,7 +162,9 @@ export const Cart = () => {
                         </span>
                       </div>
                       <a
-                        class="inline-block w-full px-6 py-4 text-lg font-medium leading-6 tracking-tighter text-center text-white bg-blue-500 lg:w-auto hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded-xl"
+                        class="inline-block w-full px-6 py-4 text-lg 
+                        font-medium leading-6 tracking-tighter text-center text-white bg-blue-500 lg:w-auto
+                         hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded-xl hover:scale-105 transition duration-100 ease-in-out cursor-pointer"
                         href="#"
                       >
                         Checkout

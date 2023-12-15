@@ -4,9 +4,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import { GoArrowUpRight } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
+
 
 
 function Carosal({data}) {
+  const navigate = useNavigate();
+
   console.log(data);
 
   return (
@@ -39,7 +43,7 @@ function Carosal({data}) {
     
     <div>
         <div className="p-3 m-8 transition-transform transform rounded-2xl shadow-lg lg:p-5 hover:scale-105 sm:m-4 lg:m-0  ">
-          <div>
+          <div className="flex justify-center">
             <img src={product.image} alt="" className=" rounded-md  h-[200px] w-[200px]  " />
           </div>
           <h2 
@@ -52,8 +56,10 @@ function Carosal({data}) {
             <span className="bg-[#CCF0F3] text-irisBlueColor rounded-2xl py-1 px-2 lg:py-2  lg:px-6 text-[12px] leading-4 lg:text-[12px] lg:leading-7 font-semibold ">
             {`₹${product.price}`}
             </span>
-            <div className="bg-blue-200 rounded-full p-2 mr-4 mb-3">
-                <GoArrowUpRight className="text-[30px]" />
+            <div className="bg-blue-200 rounded-full p-2 mr-4 mb-3 hover:scale-110 transition ease-in-out hover:bg-green-300">
+                <GoArrowUpRight
+                  onClick={() => navigate(`/productDetails/${product.id}`)}
+                 className="text-[30px]" />
             </div>
           </div>
         </div>

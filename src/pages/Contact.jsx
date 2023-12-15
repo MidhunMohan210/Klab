@@ -2,8 +2,12 @@
 import Footer from "../Components/Footer/Footer";
 import Header from "../Components/Header/Header";
 import { FiArrowUpRight } from "react-icons/fi";
+import { useEffect } from "react";
 
 function Contact() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <div className="flex flex-col min-h-screen mt-10">
@@ -79,7 +83,7 @@ function Contact() {
                     ></textarea>
                   </div>
                   <div className="flex justify-center">
-                    <button className="hover:shadow-form rounded-md bg-gradient-to-br from-blue-400 to-blue-800 py-3 px-8 text-base font-semibold text-white outline-none flex justify-center items-center gap-2 ">
+                    <button className="hover:shadow-form rounded-md bg-gradient-to-br from-blue-400 to-blue-800 py-3 px-8 text-base font-semibold text-white outline-none flex justify-center items-center gap-2 hover:scale-105 transition duration-100 ease-in-out cursor-pointer ">
                       Send Message
                       <FiArrowUpRight className="text-[20px]"/>
                     </button>

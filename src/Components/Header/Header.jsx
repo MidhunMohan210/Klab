@@ -1,7 +1,9 @@
 /* eslint-disable react/no-unknown-property */
 import Logo from "../../assets/Images/Logo.jpg";
 import { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
+import { FaCartArrowDown } from "react-icons/fa";
+
 
 function Header() {
   const [scrollY, setScrollY] = useState(0);
@@ -66,9 +68,11 @@ function Header() {
               } md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0`}
               id="navbar-collapse"
             >
-              <a href="#" className="p-2 lg:px-4 md:mx-2 text-black rounded">
+               <NavLink to={"/home"}>
+              <div href="#" className="p-2 lg:px-4 md:mx-2 text-black rounded">
                 Home
-              </a>
+              </div>
+              </NavLink>
 
               <NavLink to={"/about"}>
                 <div className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300">
@@ -88,9 +92,10 @@ function Header() {
               <NavLink to={"/cart"}>
               <div
                 href="#"
-                className="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300"
+                className="p-3 lg:px-4 md:mx-2 text-white flex items-center gap-2 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300  bg-indigo-600 bg-gradient-to-br from-red-400 to-purple-500"
               >
                 Cart
+                <FaCartArrowDown className="text-[20px]"/>
               </div>
               </NavLink>
 
@@ -99,7 +104,7 @@ function Header() {
                   href="#"
                   id="navbar-toggle"
                   onClick={handleToggle}
-                  className="p-3 lg:px-4 flex gap-2 md:mx-2 text-white rounded transition-colors duration-300 bg-indigo-600 bg-gradient-to-l from-indigo-600 to-purple-500"
+                  className="p-3 lg:px-4 flex gap-2 md:mx-2 text-white rounded transition-colors hover:text-gray-700 duration-300 bg-indigo-600 bg-gradient-to-l from-indigo-600 to-purple-500"
                 >
                   Shop
                   <svg

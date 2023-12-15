@@ -7,15 +7,16 @@ import { FiArrowUpRight } from "react-icons/fi";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../Slice/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 function ProductDetails() {
   const [details, setDetails] = useState({});
-  const [count, setCount] = useState(0);
+  const navigate = useNavigate();
 
   const { id } = useParams();
   const fetchDetails = async () => {
-    const responce = await fetch(`https://fakestoreapi.com/products/${id}`);
-    const jsonData = await responce.json();
+    const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+    const jsonData = await response.json();
     setDetails(jsonData);
   };
 
@@ -23,19 +24,26 @@ function ProductDetails() {
     fetchDetails();
   }, []);
 
-  const dispatch=useDispatch();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-  const addCart=(details)=>{
-    dispatch(addToCart(details))
+  const dispatch = useDispatch();
+
+  const addCart = (details) => {
+    dispatch(addToCart(details));
     Swal.fire({
       position: "center",
       icon: "success",
       title: "Your product is added to cart",
-      showConfirmButton: "true",
+      showConfirmButton: true,
       confirmButtonText: "Go to cart",
-      
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/cart");
+      }
     });
-  }
+  };
 
   return (
     <div>
@@ -132,12 +140,13 @@ function ProductDetails() {
                         </div>
                       </div>
 
-                    
                       <div className="flex flex-wrap items-center -mx-4 mt-12 ">
                         <div className="w-full px-4 mb-4 lg:w-1/2 lg:mb-0">
-                          <button 
-                          onClick={()=>addCart(details)}
-                          className="hover:shadow-form rounded-md bg-gradient-to-br from-blue-400 to-blue-800 py-3 px-8 text-base font-semibold text-white outline-none flex justify-center items-center gap-2 ">
+                          <button
+                            onClick={() => addCart(details)}
+                            className="hover:shadow-form rounded-md bg-gradient-to-br from-blue-400 to-blue-800 py-3 px-8 text-base 
+                            font-semibold text-white outline-none flex justify-center items-center gap-2 hover:scale-105 transition duration-100 ease-in-out cursor-pointer "
+                          >
                             Add to cart
                             <FiArrowUpRight className="text-[20px]" />
                           </button>
