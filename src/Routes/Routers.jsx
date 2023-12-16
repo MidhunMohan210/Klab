@@ -6,7 +6,6 @@ import Contact from "../pages/Contact";
 import About from "../pages/About";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
-import Circle from "../pages/Circle";
 const Routers = () => {
   return (
     <Routes>
@@ -18,7 +17,6 @@ const Routers = () => {
       <Route path="/contact" element={<Contact />} />
       <Route path="/about" element={<About />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/circle" element={<Circle />} />
     </Routes>
   );
 };
